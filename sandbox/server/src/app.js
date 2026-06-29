@@ -20,7 +20,13 @@ app.get("/api/sandbox/health", (req, res) => {
 app.post("/api/sandbox/start", async (req, res) => {
   const sandboxId = uuid();
 
-  await promise.all([createPod(sandboxId), cerateService(sandboxId)]);
+  await Promise.all([createPod(sandboxId), cerateService(sandboxId)]);
+
+  res.status(200).json({
+    message: "Sandbox environment created successfully",
+    sandboxId: sandboxId,
+    previewUrl: `http://${sandboxId}.preview.localhost`,
+  });
 });
 
 export default app;
