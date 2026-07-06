@@ -3,27 +3,41 @@ import { tool } from "langchain";
 import * as z from "zod";
 
 export const listFiles = tool(
-  async ({ paths: [] }) => {
+  async ({  }) => {
+    console.log("==============================");
+    console.log("using list files tool");
+    console.log("==============================");
+
     const response = await axios.get(
       "http://019f36e0-2602-751d-bd2d-5ecec386eef2.agent.localhost/list-files",
     );
 
-    return JOSN.stringify(response.data.files);
+    console.log("==============================");
+    console.log("response from list files tool", response.data);
+    console.log("==============================");
+    return JSON.stringify(response.data.files);
   },
   {
     name: "list_files",
     description:
       "List all the files in the project directory. This is useful for understanding what files are available to work with.",
-    inputSchema: z.object({}),
+    schema: z.object({}),
   },
 );
 
 export const readFiles = tool(
   async ({ files: [] }) => {
+    console.log("==============================");
+    console.log("using read files tool", files);
+    console.log("==============================");
     const response = await axios.get(
       "http://019f36e0-2602-751d-bd2d-5ecec386eef2.agent.localhost/read-files?files=" +
         files.join(","),
     );
+
+    console.log("==============================");
+    console.log("response from read files tool", response.data);
+    console.log("==============================");
     return JSON.stringify(response.data);
   },
   {
@@ -42,18 +56,24 @@ export const readFiles = tool(
 
 export const updateFiles = tool(
   async ({ files }) => {
+    console.log("==============================");
+    console.log("using update files tool", files);
+    console.log("==============================");
     const response = await axios.patch(
       "http://019f36e0-2602-751d-bd2d-5ecec386eef2.agent.localhost/update-files",
       {
         updates: files,
       },
     );
+    console.log("==============================");
+    console.log("response from update files tool", response.data);
+    console.log("==============================");
     return JSON.stringify(response.data.results);
   },
   {
     name: "update_files",
     description:
-      "Update the contents of specified files. This is useful for making changes to files based on the requirements of the task at hand. this tool can also use to create new files by providing a new file name in the file field and the content to be added in the content field.",
+      "Use this tool whenever you need to edit, modify, or create files.If the user asks to change the project, you MUST call this tool instead of only describing the changes.",
     schema: z.object({
       files: z
         .array(
