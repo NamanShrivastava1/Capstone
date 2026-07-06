@@ -88,21 +88,26 @@ app.get("/read-files", async (req, res) => {
 
   const fileContents = {};
 
-  await Promise.all(
+  const results = await Promise.all(
     fileList.map(async (file) => {
-      const filePath = `${WORKING_DIR}/${file}`;
+      const filePath = path.join(WORKING_DIR, file);
       try {
         const content = await fs.promises.readFile(filePath, "utf-8");
         return {
-          [filePath]: content,
+          [filePath.replace(WORKING_DIR, "")]: content,
         };
       } catch (error) {
         return {
-          [filePath]: `Error reading files: ${error.message}`,
+          [filePath.replace(WORKING_DIR, "")]:
+            `Error reading files: ${error.message}`,
         };
       }
     }),
   );
+  res.status(200).json({
+    message: "File contents",
+    files: results,
+  });
 });
 
 /**
@@ -174,5 +179,9 @@ app.post("/create-files", async (req, res) => {
       }
     }),
   );
+  res.status(200).json({
+    message: "File creation results",
+    results,
+  });
 });
 export default app;
