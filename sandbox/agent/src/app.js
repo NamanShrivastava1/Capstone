@@ -24,4 +24,40 @@ app.get("/list-files", async (req, res) => {
   });
 });
 
+/**
+ * @route GET /read-files
+ * @desc Read the contents of all files requested in query parameters "files" and returns their content as a JSON object.
+ * -eg. /read-files?files=file1.txt,/src/file2.txt
+ */
+app.get("/read-files", async (req, res) => {
+  const files = req.query.files;
+
+  if (!files) {
+    return res.status(400).json({
+      message: "No files specified in query parameters",
+      status: "error",
+    });
+  }
+
+  const fileList = files.split(",");
+
+  const fileContents = {};
+
+  await Promise.all(
+    fileList.map(async (file) => {
+      const filePath = `${WORKING_DIR}/${file}`;
+      try {
+        const content = await fs.promises.readFile(filePath, "utf-8");
+        return {
+          [filePath]: content,
+        };
+      } catch (error) {
+        return {
+          [filePath]: `Error reading files: ${error.message}`,
+        };
+      }
+    }),
+  );
+});
+
 export default app;
