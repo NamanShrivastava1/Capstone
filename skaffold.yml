@@ -1,0 +1,29 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+
+build:
+  artifacts:
+    - image: ai-orchestration
+      context: ai-orchestration
+      docker:
+        dockerfile: Dockerfile
+
+    - image: agent
+      context: sandbox/agent
+      docker:
+        dockerfile: Dockerfile
+
+    - image: router
+      context: sandbox/router
+      docker:
+        dockerfile: Dockerfile
+
+    - image: sandbox
+      context: sandbox/server
+      docker:
+        dockerfile: Dockerfile
+
+    - image: template
+      context: sandbox/template
+      docker:
+        dockerfile: Dockerfile
