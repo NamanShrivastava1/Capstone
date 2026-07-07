@@ -14,17 +14,4 @@ const agent = createAgent({
   tools: [listFiles, readFiles, updateFiles],
 });
 
-try {
-  const result = await agent.invoke({
-    messages: [
-      {
-        role: "user",
-        content: "Remove the old code and create a basic snake game in project using react",
-      },
-    ],
-  });
-
-  console.log(result);
-} catch (err) {
-  console.error(err);
-}
+export default agent;
