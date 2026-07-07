@@ -9,7 +9,7 @@ export const listFiles = tool(
     console.log("==============================");
 
     const response = await axios.get(
-      "http://019f3bd5-7fb7-75ee-b6b2-8bfca6e8bd1c.agent.localhost/list-files",
+      "http://019f3be2-1e95-77e9-aad6-1888083ffd22.agent.localhost/list-files",
     );
 
     console.log("==============================");
@@ -31,7 +31,7 @@ export const readFiles = tool(
     console.log("using read files tool", files);
     console.log("==============================");
     const response = await axios.get(
-      "http://019f3bd5-7fb7-75ee-b6b2-8bfca6e8bd1c.agent.localhost/read-files?files=" +
+      "http://019f3be2-1e95-77e9-aad6-1888083ffd22.agent.localhost/read-files?files=" +
         files.join(","),
     );
 
@@ -60,7 +60,7 @@ export const updateFiles = tool(
     console.log("using update files tool", files);
     console.log("==============================");
     const response = await axios.patch(
-      "http://019f3bd5-7fb7-75ee-b6b2-8bfca6e8bd1c.agent.localhost/update-files",
+      "http://019f3be2-1e95-77e9-aad6-1888083ffd22.agent.localhost/update-files",
       {
         updates: files,
       },

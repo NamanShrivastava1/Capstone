@@ -4,6 +4,7 @@ import agent from "../agents/code.agent.js";
 const agentRouter = Router();
 
 agentRouter.post("/invoke", async (req, res) => {
+  console.log("Agent Invoking");
   try {
     const { message } = req.body;
     const response = await agent.invoke({
