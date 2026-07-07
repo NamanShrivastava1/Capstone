@@ -8,9 +8,8 @@ build:
       docker:
         dockerfile: Dockerfile
       sync:
-        manual:
-          - src: "src/**"
-            dest: "app/src"
+        infer:
+          - "src/**"
 
     - image: agent
       context: sandbox/agent
