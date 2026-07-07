@@ -7,6 +7,10 @@ build:
       context: ai-orchestration
       docker:
         dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**"
+            dest: "app/src"
 
     - image: agent
       context: sandbox/agent
