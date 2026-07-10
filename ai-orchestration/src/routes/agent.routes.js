@@ -35,9 +35,8 @@ agentRouter.post("/invoke", async (req, res) => {
   try {
     const { message, projectId } = req.body;
 
-    console.log("Before invoke");
-
-    const response = await agent.invoke(
+    // Use stream when we use writer
+    const response = await agent.stream(
       {
         messages: [
           {
@@ -50,11 +49,13 @@ agentRouter.post("/invoke", async (req, res) => {
         context: {
           projectId,
         },
+        streamMode: "custom",
       },
     );
 
-    console.log("After invoke"); // <-- Does this ever print?
-    console.log(response);
+    for await (const chunk of response) {
+      console.log(chunk);
+    }
 
     res.json({ response });
   } catch (err) {
