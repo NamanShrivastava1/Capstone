@@ -86,8 +86,6 @@ app.get("/read-files", async (req, res) => {
 
   const fileList = files.split(",");
 
-  const fileContents = {};
-
   const results = await Promise.all(
     fileList.map(async (file) => {
       const filePath = path.join(WORKING_DIR, file);

@@ -26,7 +26,7 @@ export const listFiles = tool(
 );
 
 export const readFiles = tool(
-  async ({ files: [] }, config) => {
+  async ({ files = [] }, config) => {
     console.log("==============================");
     console.log("using read files tool", files);
     console.log("==============================");
@@ -60,7 +60,7 @@ export const updateFiles = tool(
     console.log("using update files tool", files);
     console.log("==============================");
     const response = await axios.patch(
-      `http://sandbox-service-${config.context.projectId}:3000/read-files`,
+      `http://sandbox-service-${config.context.projectId}:3000/update-files`,
       {
         updates: files,
       },

@@ -1,12 +1,29 @@
 import "dotenv/config";
-import { ChatMistralAI } from "@langchain/mistralai";
 import { listFiles, readFiles, updateFiles } from "./tools.js";
 import { createAgent } from "langchain";
+import { ChatMistralAI } from "@langchain/mistralai";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatOpenAI } from "@langchain/openai";
 
-const model = new ChatMistralAI({
-  model: "mistral-medium-latest",
-  apiKey: process.env.MISTRAL_API_KEY,
-  temperature: 0.7,
+// const model = new ChatMistralAI({
+//   model: "mistral-large-latest",
+//   apiKey: process.env.MISTRAL_API_KEY,
+//   temperature: 0.7,
+// });
+
+// const model = new ChatGoogleGenerativeAI({
+//     model: "gemini-2.0-flash",
+//     apiKey: process.env.GEMINI_API_KEY,
+//     temperature: 0,
+// })
+
+const model = new ChatOpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  configuration: {
+    baseURL: "https://openrouter.ai/api/v1",
+  },
+  model: "deepseek/deepseek-chat-v3",
+  temperature: 0,
 });
 
 const agent = createAgent({
@@ -157,7 +174,7 @@ FINAL PRINCIPLE
 Build the thing the user would build if they were a senior frontend engineer with taste and one afternoon to spare. Default to doing more, not less. When in doubt, ship something polished and offer to refine.
     `,
 }).withConfig({
-    recursionLimit: 100
+  recursionLimit: 100,
 });
 
 export default agent;
