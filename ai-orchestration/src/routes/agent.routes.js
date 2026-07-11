@@ -35,6 +35,12 @@ agentRouter.post("/invoke", async (req, res) => {
   try {
     const { message, projectId } = req.body;
 
+    res.writeHead(200, {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cacahe",
+      connection: "keep-alive",
+    });
+
     // Use stream when we use writer
     const response = await agent.stream(
       {
@@ -55,6 +61,7 @@ agentRouter.post("/invoke", async (req, res) => {
 
     for await (const chunk of response) {
       console.log(chunk);
+      res.write(`data: ${chunk}\n\n`);
     }
 
     res.json({ response });
