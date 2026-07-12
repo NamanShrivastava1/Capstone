@@ -5,7 +5,6 @@ export const cerateService = async (sandboxId) => {
     metadata: {
       name: `sandbox-service-${sandboxId}`,
       labels: {
-        app: `sandbox`,
         sandboxId: sandboxId,
       },
     },

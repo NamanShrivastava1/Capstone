@@ -19,7 +19,7 @@ app.use(morgan("dev"));
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST", "PATCH"],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   },
 });
 
