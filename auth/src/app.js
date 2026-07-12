@@ -1,0 +1,26 @@
+import "dotenv/config";
+import express from "express";
+import morgan from "morgan";
+import jwt from "jsonwebtoken";
+import cookies from "cookie-parser";
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+
+const app = express();
+
+app.use(morgan("dev"));
+app.use(cookies());
+app.use(passport.initialize());
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: "",
+      clientSecret: "",
+      callbackURL: "/api/auth/google/callback",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      return done(null, profile);
+    },
+  ),
+);
