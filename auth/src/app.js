@@ -6,6 +6,8 @@ import cookies from "cookie-parser";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
+import authRoutes from "./routes/auth.routes.js";
+
 const app = express();
 
 app.use(morgan("dev"));
@@ -24,5 +26,7 @@ passport.use(
     },
   ),
 );
+
+app.use("/api/auth", authRoutes);
 
 export default app;
