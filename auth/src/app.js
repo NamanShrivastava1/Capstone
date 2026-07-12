@@ -15,8 +15,8 @@ app.use(passport.initialize());
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "",
-      clientSecret: "",
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/api/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
@@ -24,3 +24,5 @@ passport.use(
     },
   ),
 );
+
+export default app;
