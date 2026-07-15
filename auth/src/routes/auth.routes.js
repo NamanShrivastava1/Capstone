@@ -8,12 +8,15 @@ const router = Router();
 
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  passport.authenticate("google", {
+    session: false,
+    scope: ["profile", "email"],
+  }),
 );
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
+  passport.authenticate("google", { session: false, failureRedirect: "/" }),
   async (req, res) => {
     try {
       const { id, displayName, emails, photos } = req.user;
