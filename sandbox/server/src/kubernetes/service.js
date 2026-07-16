@@ -35,3 +35,11 @@ export const cerateService = async (sandboxId) => {
   });
   return resposne;
 };
+
+export async function deleteService(sandboxId) {
+  const response = await k8sCoreV1Api.deleteNamespacedService({
+    namespace: "default",
+    name: `sandbox-service-${sandboxId}`,
+  });
+  return response;
+}
