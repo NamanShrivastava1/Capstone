@@ -10,6 +10,12 @@ metadata:
     ngnix.ingress.kubernetes.io/affinity: "cookie"
     ngnix.ingress.kubernetes.io/session-cookie-name: "route"
 
+    nginx.ingress.kubernetes.io/session-cookie-path: "/"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://www.cryboy.in"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
+
   labels:
     app.kubernetes.io/name: capstone-ingress
 spec:
