@@ -24,7 +24,7 @@ router.post("/project", authMiddleware, async (req, res) => {
   });
 });
 
-router.post("/api/sandbox/start", authMiddleware, async (req, res) => {
+router.post("/start", authMiddleware, async (req, res) => {
   const projectId = req.body.projectId;
 
   // Verify that the project belongs to the authenticated user
@@ -42,7 +42,7 @@ router.post("/api/sandbox/start", authMiddleware, async (req, res) => {
   const sandboxId = uuid();
 
   await Promise.all([
-    createPod(sandboxId),
+    createPod(sandboxId, projectId),
     cerateService(sandboxId),
     createSandboxKey(sandboxId),
   ]);
