@@ -45,6 +45,7 @@ router.get(
       });
 
       res.cookie("token", token);
+      console.log(token)
       res.redirect("http://localhost:5173");
     } catch (error) {
       console.log("Error during Google authentication: ", error);

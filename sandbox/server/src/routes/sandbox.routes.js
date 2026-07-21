@@ -11,7 +11,7 @@ const router = Router();
 router.post("/project", authMiddleware, async (req, res) => {
   const { title } = req.body;
 
-  const newProject = new Project({
+  const newProject = new projectModel({
     user: req.user.id,
     title,
   });
@@ -28,7 +28,10 @@ router.post("/api/sandbox/start", authMiddleware, async (req, res) => {
   const projectId = req.body.projectId;
 
   // Verify that the project belongs to the authenticated user
-  const project = await Project.findOne({ _id: projectId, user: req.user.id });
+  const project = await projectModel.findOne({
+    _id: projectId,
+    user: req.user.id,
+  });
 
   if (!project) {
     return res
@@ -52,7 +55,7 @@ router.post("/api/sandbox/start", authMiddleware, async (req, res) => {
 });
 
 router.get("/project", authMiddleware, async (req, res) => {
-  const projects = await Project.find({ user: req.user.id });
+  const projects = await projectModel.find({ user: req.user.id });
 
   return res.status(200).json({
     message: "Projects retrieved successfully",
