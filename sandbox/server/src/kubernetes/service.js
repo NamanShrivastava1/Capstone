@@ -10,7 +10,7 @@ export const cerateService = async (sandboxId) => {
     },
     spec: {
       selector: {
-        app: `sandbox`,
+        app: `sandbox-runtime`,
         sandboxId: sandboxId,
       },
       ports: [
