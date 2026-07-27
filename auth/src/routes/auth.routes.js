@@ -23,13 +23,6 @@ router.get(
       const { id, displayName, emails, photos } = req.user;
       let user = await userModel.findOne({ googleId: id });
 
-      await sendAuthNotification({
-        userId: user._id,
-        action: "google_login",
-        timestamp: new Date(),
-        email: emails[0].value,
-      });
-
       if (!user) {
         user = new userModel({
           googleId: id,
@@ -40,12 +33,19 @@ router.get(
         await user.save();
       }
 
+      await sendAuthNotification({
+        userId: user._id,
+        action: "google_login",
+        timestamp: new Date(),
+        email: emails[0].value,
+      });
+
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
 
       res.cookie("token", token);
-      console.log(token)
+      console.log(token);
       res.redirect("http://localhost:5173");
     } catch (error) {
       console.log("Error during Google authentication: ", error);
