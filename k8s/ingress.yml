@@ -12,7 +12,7 @@ metadata:
 
     nginx.ingress.kubernetes.io/session-cookie-path: "/"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "http://www.cryboy.in"
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "http://www.cryboy.in"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
 
@@ -51,7 +51,7 @@ spec:
                 port:
                   number: 80
 
-    - host: "*.preview.localhost"
+    - host: "*.preview.capstone.run.place"
       http:
         paths:
           - pathType: Prefix
@@ -62,7 +62,7 @@ spec:
                 port:
                   number: 80
 
-    - host: "*.agent.localhost"
+    - host: "*.agent.capstone.run.place"
       http:
         paths:
           - pathType: Prefix
